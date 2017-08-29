@@ -1,0 +1,23 @@
+﻿@using NonFactors.Mvc.Grid
+@model IEnumerable<PSK.WebApp.ViewModels.QuestionListItemViewModel>
+
+
+
+@(Html
+      .Grid(Model)
+      .Build(columns =>
+      {
+          columns.Add(model => model.Id);
+          columns.Add(model => model.Mandatory);
+          columns.Add(model => model.Type);
+          columns.Add(model => model.QuestionText);
+      })
+      .Pageable(pager =>
+      {
+          pager.PagesToDisplay = 5;
+          pager.RowsPerPage = 10;
+      })
+      .Filterable()
+      .Sortable()
+      .Named("Questions")
+)

@@ -1,0 +1,23 @@
+﻿@using System.Web.Services.Protocols
+@using NonFactors.Mvc.Grid
+@model IEnumerable<PSK.WebApp.ViewModels.QuizViewModel>
+
+@(Html
+      .Grid(Model)
+      .Build(columns =>
+      {
+          columns.Add(model => model.Id);
+          columns.Add(model => model.Name);
+          columns.Add(model => model.CreatedBy);
+          columns.Add(model => "<a href=\"" + Url.Action("Index", "Enrollment", new { area = "Public", id = model.Id }) + "\"> Start </a>").Encoded(false);
+      })
+      .Pageable(pager =>
+      {
+          pager.PagesToDisplay = 5;
+          pager.RowsPerPage = 10;
+      })
+      .Filterable()
+      .Sortable()
+      .Named("Quizes")
+      )
+

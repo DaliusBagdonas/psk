@@ -1,0 +1,64 @@
+﻿@model PSK.WebApp.ViewModels.IntegerQuestionViewModel
+
+@{
+    ViewBag.Title = "Integer Question";
+}
+
+@using (Html.BeginForm("CreateIntegerQuestion", "Quiz", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new Integer Question</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.HiddenFor(x => x.QuizId)
+
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.QuestionText, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+
+            @Html.TextAreaFor(x => x.QuestionText, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.LowerBound, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <input type="number"class="form-control" data-val="true" data-val-number="The field Lower Bound must be a number." data-val-required="The Lower Bound field is required." id="LowerBound" name="LowerBound">
+            @*@Html.TextBoxFor(x => x.LowerBound, new { @class = "form-control" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.UpperBound, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <input type="number" class="form-control" data-val="true" data-val-number="The field Upper Bound must be a number." data-val-required="The Upper Bound field is required." id="UpperBound" name="UpperBound">
+            @*@Html.TextBoxFor(x => x.UpperBound, new { @class = "form-control" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Mandatory, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+
+            @Html.CheckBoxFor(x => x.Mandatory, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success" value="Create" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Cancel", "Details", new {id = Model.QuizId} , new { @class = "btn btn-danger" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

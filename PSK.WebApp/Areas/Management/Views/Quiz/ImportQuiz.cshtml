@@ -1,0 +1,72 @@
+﻿
+@model PSK.WebApp.ViewModels.QuizViewModel
+@{
+    ViewBag.Title = "Import Quiz";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("ImportQuiz", "Quiz", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data", id="mainform" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Import Quiz Questions And Answers.</h4>
+    <hr />
+    if (@TempData["message"] != null)
+    {
+        <h4 class = "text-danger">@TempData["message"].ToString()</h4>
+    }
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id="fileName" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="file" name="file" class="btn btn-default"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" class="btn btn-default" onclick="checkFile();" value="Import" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#fileName").val("");
+        });
+
+        var checkFile = function () {
+            if ($("[name=file]").val() === undefined || $("[name=file]").val() == "") {
+                alert("Choose file!");
+                return;
+            }
+
+            var extension = getExtension($("[name=file]").val());
+
+            if (extension != "xlsx" && extension !== "xls") {
+                alert("Wrong file type!");
+                return;
+            }
+
+            $("#mainform").submit();
+        }
+
+        var getExtension = function (file) {
+            var parts = file.split(".");
+
+            return parts[parts.length - 1];
+        }
+    </script>
+}

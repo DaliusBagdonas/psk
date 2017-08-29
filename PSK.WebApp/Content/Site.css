@@ -1,0 +1,56 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.button-group-row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.quiz-title {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.quiz-title > span {
+    font-size: xx-large;
+}
+
+.quiz-author {
+    display: inherit;
+}
+
+.quiz-author *{
+    opacity: 0.5;
+}
+
+.centre-block {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.success-block {
+    margin-top: 10%;
+    max-width: 600px;
+}

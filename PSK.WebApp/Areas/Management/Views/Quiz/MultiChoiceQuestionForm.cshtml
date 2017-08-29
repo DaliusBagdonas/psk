@@ -1,0 +1,71 @@
+﻿@model PSK.WebApp.ViewModels.ChoiceQuestionViewModel
+
+@{
+    ViewBag.Title = "Multi Choice Question";
+}
+
+@using (Html.BeginForm("CreateMultiChoiceQuestion", "Quiz", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new Multi Choice Question</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.HiddenFor(x => x.QuizId)
+
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.QuestionText, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(x => x.QuestionText, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Answers, new { @class = "col-md-2 control-label" })
+    </div>
+
+    <div class="answers-block form-group dynamic-list-wrapper">
+        @for (var i = 0; i < Model.Answers.Count; i++)
+        {
+            <div class="dynamic-list-body">
+                <div class="col-md-offset-2 col-md-5">
+                     @Html.TextAreaFor(x => x.Answers[i].Text, new { @class = "form-control" })
+                </div>
+                <div class="remove-row col-md-2">
+                    <button type="button" class="btn btn-default remove-row-btn col-md-2" onclick="RemoveBlock(this)">-</button>
+                </div> 
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-default" onclick="AppendBlock('answers-block')">Add Another Answer</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Mandatory, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(x => x.Mandatory, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success" value="Create" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Cancel", "Details", new { id = Model.QuizId }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+}
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/blocks")
+    }

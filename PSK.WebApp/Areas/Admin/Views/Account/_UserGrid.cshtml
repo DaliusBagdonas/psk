@@ -1,0 +1,19 @@
+﻿@using NonFactors.Mvc.Grid
+@model IEnumerable<PSK.WebApp.ViewModels.ApplicationUserListItemViewModel>
+
+@(Html
+      .Grid(Model)
+      .Build(columns =>
+      {
+          columns.Add(model => model.UserName);
+          columns.Add(model => model.Roles);
+      })
+      .Pageable(pager =>
+      {
+          pager.PagesToDisplay = 5;
+          pager.RowsPerPage = 10;
+      })
+      .Filterable()
+      .Sortable()
+      .Named("Users")
+)

@@ -1,0 +1,39 @@
+﻿@using NonFactors.Mvc.Grid
+@using PSK.WebApp.ViewModels
+@model QuizViewModel
+
+
+<div class="quiz-title">
+    <span>@Html.DisplayFor(x => x.Name)</span> 
+    <div class="quiz-author">
+        @Html.LabelFor(x => x.CreatedBy) 
+        <span>@Html.DisplayFor(x => x.CreatedBy)</span>
+    </div>
+
+    @*<h4>@Html.LabelFor(x => x.Name)</h4>*@
+</div>
+<!-- TODO: rodyti link i apklausa
+@Html.LabelFor(x => x.Id)
+@Html.DisplayFor(x => x.Id)
+-->
+
+<div class="button-group-row">
+    @Html.ActionLink("Create Free Text Question", "FreeTextQuestionForm", new {Model.Id}, new { @class = "btn btn-success" })
+    @Html.ActionLink("Create Integer Question", "IntegerQuestionForm", new { Model.Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Create Single Choice Question", "SingleChoiceQuestionForm", new { Model.Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Create Multi Choice Question", "MultiChoiceQuestionForm", new { Model.Id }, new { @class = "btn btn-success" })
+</div>
+
+@Html.AjaxGrid(Url.Action("GetQuestions", new { Model.Id }))
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('.mvc-grid').mvcgrid();
+        });
+
+    </script>
+}

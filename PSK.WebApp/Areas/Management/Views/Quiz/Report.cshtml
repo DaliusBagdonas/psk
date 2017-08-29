@@ -1,0 +1,153 @@
+﻿@using PSK.WebApp.ViewModels
+@model ReportViewModel
+
+@if (Model.FreeText!= null && Model.FreeText.Count() > 0)
+{
+    for (var i = 0; i < Model.FreeText.Count(); i++)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <b>Question:</b> @Html.DisplayFor(m => m.FreeText[i].Question.QuestionText)
+            </div>
+            <div class="col-md-5">
+                Type: Free Text Question
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                @{ 
+                    int timesAnswered = Model.FreeText[i].FreeTextAnswers.Count();
+                }
+                Number Of Answers: <b>@Html.DisplayFor(m => timesAnswered)</b>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <b>None Of Free Text Questions Was Answered</b>
+        </div>
+    </div>
+}
+
+@if (Model.Integer != null && Model.Integer.Count() > 0)
+{
+    for (var i = 0; i < Model.Integer.Count(); i++)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <b>Question:</b> @Html.DisplayFor(m => m.Integer[i].Question.QuestionText)
+            </div>
+            <div class="col-md-5">
+                Type: Score
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                @{
+                    int timesAnswered = Model.Integer[i].IntegertAnswers.Count();
+                }
+                Number Of Answers: <b>@Html.DisplayFor(m => timesAnswered)</b>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                Lowest Score: <b>@Html.DisplayFor(m => m.Integer[i].LowestScore)</b>, 
+                Highest Score: <b>@Html.DisplayFor(m => m.Integer[i].HighestScore)</b>, 
+                Average Score: <b>@Html.DisplayFor(m => m.Integer[i].AverageScore)</b>
+            </div>
+        </div>
+     }
+}
+else
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <b>None Of Score Questions Was Answered</b>
+        </div>
+    </div>
+}
+
+@if (Model.SingleChoice != null && Model.SingleChoice.Count() > 0)
+{
+    for (var i = 0; i < Model.SingleChoice.Count(); i++)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <b>Question:</b> @Html.DisplayFor(m => m.SingleChoice[i].Question.QuestionText)
+            </div>
+            <div class="col-md-5">
+                Type: Multiple Choice
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                @{
+                    int timesAnswered = Model.SingleChoice[i].SingleChoiceAnswers.Count();
+                }
+                Number Of Answers: <b>@Html.DisplayFor(m => timesAnswered)</b>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                Most Common Answers:
+                @for (var j = 0; j < Model.SingleChoice[i].MostCommonAnswers.Count(); j++)
+                {
+                    string mostCommon = Model.SingleChoice[i].MostCommonAnswers[j].ToString() + "; ";
+                    <b>@Html.DisplayFor(m => mostCommon)</b>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <b>None Of Single Choice Questions Was Answered</b>
+        </div>
+    </div>
+}
+
+@if (Model.MultiChoice != null && Model.MultiChoice.Count() > 0)
+{
+    for (var i = 0; i < Model.MultiChoice.Count(); i++)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <b>Question:</b> @Html.DisplayFor(m => m.MultiChoice[i].Question.QuestionText)
+            </div>
+            <div class="col-md-5">
+                Type: Checkbox
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                @{
+                    int timesAnswered = Model.MultiChoice[i].MultiChoiceAnswers.Count();
+                }
+                Number Of Answers: <b>@Html.DisplayFor(m => timesAnswered)</b>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                Most Common Answers:
+                @for (var j = 0; j < Model.MultiChoice[i].MostCommonAnswers.Count(); j++)
+                {
+                    string mostCommon = Model.MultiChoice[i].MostCommonAnswers[j].ToString() + "; ";
+                    <b>@Html.DisplayFor(m => mostCommon)</b>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <b>None Of Multiple Choice Questions Was Answered</b>
+        </div>
+    </div>
+}

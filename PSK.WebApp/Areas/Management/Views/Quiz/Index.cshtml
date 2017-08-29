@@ -1,0 +1,36 @@
+﻿@using NonFactors.Mvc.Grid
+
+<div class="button-group-row">
+    @Html.ActionLink("Create New Quiz", "CreateQuiz", "Quiz", new { id = "createQuizLink", @class = "btn btn-success" })
+    @Html.ActionLink("Import Quiz Q&A", "ImportQuiz", "Quiz", new { id = "importQuizLink", @class = "btn btn-success" })
+</div>
+
+
+ @Html.AjaxGrid(Url.Action("GetQuizs"))
+
+
+
+@section scripts
+{
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('.mvc-grid').mvcgrid();
+            });
+
+        </script>
+}
+
+<!-- TODO: move to site css-->
+<style type="text/css">
+    .author {
+        display: inline-block;
+        width: 200px;
+    }
+
+    .name {
+        display: inline-block;
+        width: 200px;
+        font-weight: bold;
+    }
+</style>

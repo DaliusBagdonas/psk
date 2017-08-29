@@ -1,0 +1,73 @@
+﻿@using System.Web.Mvc.Html
+@model PSK.WebApp.ViewModels.FreeTextAnswerViewModel
+
+@using (@Html.BeginForm("AnswerFreeText", "Enrollment", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new Free Text Question</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.HiddenFor(x => x.QuestionId)
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.QuestionText, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+
+            @Html.DisplayTextFor(x => x.QuestionText)@*, new { @class = "form-control" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Answer, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+
+            @Html.TextAreaFor(x => x.Answer, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-2">
+            <input type="submit" class="btn btn-default" value="Submit" />
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email" />
+        </div>
+        <div class="col-md-6">
+            <input class = "btn btn-default" onclick="submitSave()" value="Save And Send"/>
+        </div>
+    </div>
+    if (!Model.Mandatory)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Skip", "NextQuestion",null, new { @class = "btn btn-info" })
+            </div>
+        </div>
+    }
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/validation")
+
+    <script type="text/javascript">
+
+        var submitSave = function () {
+            if ($("#email").val() == "") {
+                alert("Enter Email!");
+                return;
+            }
+
+            if (!validateEmail($("#email").val())) {
+                alert("Enter Valid Email!");
+                return false;
+            };
+
+            var email = encodeURIComponent($("#email").val().replace(/\./g, "%2E"));
+
+            $.post("../public/SaveAndSend/" + $("#QuestionId").val() + "/" + email);
+        }
+
+    </script>
+}

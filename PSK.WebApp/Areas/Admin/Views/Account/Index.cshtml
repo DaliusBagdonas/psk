@@ -1,0 +1,21 @@
+﻿@using NonFactors.Mvc.Grid
+
+<div class="button-group-row">
+    @Html.ActionLink("Create User", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" , @class = "btn btn-success" })
+    @Html.ActionLink("Create New Role", "CreateRole", "Account", routeValues: null, htmlAttributes: new { id = "createRoleLink", @class = "btn btn-success" })
+</div>
+
+
+
+@Html.AjaxGrid(Url.Action("GetUsers"))
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.mvc-grid').mvcgrid();
+        });
+
+    </script>
+}
